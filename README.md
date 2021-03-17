@@ -13,7 +13,7 @@
 * fork 这个repo
 * 增加一个 repo secret `USERS`, 格式如下，需代入你的用户名密码
 ```text
-"[{'username':'replace_with_your_username','password':'replace_with_your_password'}]"
+[{'username':'replace_with_your_username','password':'replace_with_your_password'}]
 ```
 
 ### github action with docker

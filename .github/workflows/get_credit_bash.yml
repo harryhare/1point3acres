@@ -18,4 +18,4 @@ jobs:
 
       - name: run the script
         run: |
-          cd src && python3 service.py ${{ secrets.USERS }}
+          cd src && python3 service.py "${{ secrets.USERS }}"
