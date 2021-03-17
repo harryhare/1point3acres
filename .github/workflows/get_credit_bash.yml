@@ -1,0 +1,17 @@
+name: 'get credit everyday'
+
+on:
+  push:
+  schedule:
+    - cron: '9 * * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: bark every minute
+        run: |
+          apt-get update
+          apt-get -y install tesseract-ocr
+          pip3 install -r requirments.txt
+          cd src && python3 service.py ${{ secrets.USERS }}
