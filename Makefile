@@ -1,7 +1,7 @@
 .phony: push build bash run
 
 build:
-	docker build  -t 1point3acres -f docker/dockerfile .
+	docker build  -t 1point3acres -f docker/dockerfile.aws.lambda .
 
 bash:
 	docker run --rm -it --entrypoint=bash 1point3acres
