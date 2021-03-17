@@ -67,7 +67,7 @@ def daily_question() -> bool:
 
 
 def do_all(username: str, password: str):
-	print(f"for user: {username}")
+	print(f"for user: {username[:3]}...{username[-2:]}")
 	login(username, password)
 	daily_checkin()
 	daily_question()

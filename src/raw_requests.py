@@ -264,7 +264,6 @@ def do_daily_question_(answer: str, verify_code: str, form_hash: str, sec_hash: 
 		"seccodeverify": verify_code,
 		"submit": "true"
 	}
-	print(body)
 	# 网站的原版请求是 multipart/form-data ，但是我发现用 application/x-www-form-urlencoded 也是可以的
 	# response = requests.post(post_answer_url, files=body, headers=header, cookies=cookie_jar)
 	response = requests.post(post_answer_url, data=body, headers=header, cookies=cookie_jar)
