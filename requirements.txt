@@ -1,0 +1,7 @@
+requests
+lxml
+pytesseract
+Pillow
+cssselect
+
+
