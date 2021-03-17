@@ -3,7 +3,7 @@
 一亩三分地自动签到 答题 https://www.1point3acres.com/bbs/
 
 
-## how to
+## how to use
 
 下面几种执行模式任选一种即可。
 
@@ -49,7 +49,17 @@ jobs:
 
 
 ### 本机 crontab 模式
+* 修改 configure/data/json，用你的用户名密码替换文件中的相应字段
+* 安装依赖
+以 ubuntu 为例，其他系统请用相应的方式安装依赖
 ```bash
 sudo /bin/bash prepare.sh
+```
+* crontab
+```
+crontab -e
+```
+```text
+8 8 * * * python3 service.py
 ```
 
