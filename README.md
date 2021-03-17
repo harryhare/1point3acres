@@ -25,7 +25,7 @@
 name: run docker
 on: 
   schedule:
-    - cron: '10 * * * *'
+    - cron: '10 10 * * *'
 
 jobs:
   1point3acres:
