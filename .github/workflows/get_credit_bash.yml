@@ -9,9 +9,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: bark every minute
+      - name: run script
         run: |
-          apt-get update
-          apt-get -y install tesseract-ocr
+          whoami
+          sudo apt-get update
+          sudo apt-get -y install tesseract-ocr
           pip3 install -r requirments.txt
           cd src && python3 service.py ${{ secrets.USERS }}
