@@ -6,13 +6,18 @@ on:
     - cron: '9 * * * *'
 
 jobs:
-  test:
+  run:
     runs-on: ubuntu-latest
     steps:
-      - name: run script
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: install dependencies
         run: |
-          whoami
           sudo apt-get update
           sudo apt-get -y install tesseract-ocr
           pip3 install -r requirments.txt
+
+      - name: run the script
+        run: |
           cd src && python3 service.py ${{ secrets.USERS }}
