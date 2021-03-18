@@ -97,3 +97,6 @@
     15 6 * * * python3 /replace_with_path_to_repo/service.py 2>&1 1>/dev/null
     ```
 
+## 其他
+
+* 题目数据来自： https://github.com/eagleoflqj/p1a3_script
