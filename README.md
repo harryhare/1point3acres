@@ -26,14 +26,14 @@
     ```
 * 创建 workflow
 	```yaml
-    name: run docker
+    name:  1point3acre get credits with docker
     on: 
       workflow_dispatch:
       schedule:
         - cron: '30 6 * * *'
     	
     jobs:
-      1point3acres:
+      _1point3acres:
         runs-on: ubuntu-latest
         name: get credits
         steps:
