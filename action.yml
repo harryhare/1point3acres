@@ -1,0 +1,16 @@
+# action.yml
+name: '1point3acres get credits with docker'
+description: 'automatically checkin and answer daily question'
+inputs:
+  users:  # id of input
+    description: 'json string of username and password'
+    required: true
+    default: "[{'username':'replace_with_your_username','password':'replace_with_your_password'}]"
+outputs:
+  log: # id of output
+    description: 'log'
+runs:
+  using: 'docker'
+  image: 'docker/Dockerfile'
+  args:
+    - ${{ inputs.users }}
