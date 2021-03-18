@@ -4,7 +4,8 @@
 
 * 程序会自动识别验证码
 * 程序会在指定的时间每天运行一次，一次配置，永远执行，设好后就在不用管
-* 配置简单，一分钟搞定，使用 github action，只要fork 本repo后设置 repo secret 即可
+* 配置简单，一分钟搞定，使用 github action 模式，只要 fork 本repo后设置 repo secret 即可
+* 支持多用户签到，批量用户签到，把用户名密码加到`USERS`数组中即可
 
 ## how to use
 
