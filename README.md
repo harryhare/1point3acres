@@ -26,24 +26,23 @@
     ```
 * 创建 workflow
 	```yaml
-    name:  1point3acre get credits with docker
-    on: 
+    name: 1point3acre get credits with docker
+    on:
       workflow_dispatch:
       schedule:
         - cron: '30 6 * * *'
-    	
     jobs:
       _1point3acres:
         runs-on: ubuntu-latest
         name: get credits
         steps:
-        - name: Hello world action step
+        - name: run docker
           id: checkin
           uses: harryhare/1point3acres@main
           with:
             users: ${{ secrets.USERS }}
-        - name: Get the log
-          run: echo "${{ steps.checkin.outputs.log }}"
+        - name: get the result
+          run: echo "${{ steps.checkin.outputs.result }}"
 	```
 
 
