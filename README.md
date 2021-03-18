@@ -48,6 +48,7 @@
 
 
 ### AWS-lambda 模式
+* 修改 configure/data/json，用你的用户名密码替换文件中的相应字段
 * aws 创建 docker registry, 修改 makefile 的 image 地址
 * 根据 aws 提示，docker login，然后 make build && make push
 * aws 创建 lambda，选择第一步创建的 image，设置trigger

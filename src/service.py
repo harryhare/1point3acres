@@ -74,13 +74,13 @@ def do_all(username: str, password: str):
 	return
 
 
-def main():
-	uses = []
-	if len(sys.argv) > 1:
-		users = json.loads(sys.argv[1].replace("'", '"'))
-	else:
+def main(from_file: bool = False):
+	users = []
+	if from_file or len(sys.argv) == 1:
 		fp = open("../configure/data.json")
 		users = json.loads(fp)
+	else:
+		users = json.loads(sys.argv[1].replace("'", '"'))
 	for user in users:
 		m = hashlib.md5()
 		m.update(user["password"].encode("ascii"))
