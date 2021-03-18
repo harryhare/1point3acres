@@ -3,7 +3,7 @@ name: 'get credit everyday'
 on:
   push:
   schedule:
-    - cron: '9 9 * * *'
+    - cron: '45 6 * * *'
 
 jobs:
   run:

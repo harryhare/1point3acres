@@ -29,7 +29,7 @@
 	name: run docker
 	on: 
 	  schedule:
-		- cron: '10 10 * * *'
+		- cron: '30 6 * * *'
 	
 	jobs:
 	  1point3acres:
@@ -64,6 +64,6 @@
 	crontab -e
 	```
 	```text
-	8 8 * * * python3 /replace_with_path_to_repo/service.py 2>&1 1>/dev/null
+	15 6 * * * python3 /replace_with_path_to_repo/service.py 2>&1 1>/dev/null
 	```
 	
