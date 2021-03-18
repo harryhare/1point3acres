@@ -78,7 +78,7 @@ def main(from_file: bool = False):
 	users = []
 	if from_file or len(sys.argv) == 1:
 		fp = open("../configure/data.json")
-		users = json.loads(fp)
+		users = json.load(fp)
 	else:
 		users = json.loads(sys.argv[1].replace("'", '"'))
 	for user in users:
