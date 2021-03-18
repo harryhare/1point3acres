@@ -7,7 +7,8 @@ from debian:latest
 run apt-get update
 run apt-get -y install python3 python3-pip tesseract-ocr
 run pip3 install requests lxml pytesseract cssselect
-copy src ./
+copy src /app/src/
+copy configure /app/configure
 env PYTHONIOENCODING=utf8
-ENTRYPOINT ["python3","service.py"]
+ENTRYPOINT ["python3","/app/src/service.py"]
 
