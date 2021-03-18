@@ -7,8 +7,8 @@ inputs:
     required: true
     default: "[{'username':'replace_with_your_username','password':'replace_with_your_password'}]"
 outputs:
-  log: # id of output
-    description: 'log'
+  result: # id of output
+    description: 'result'
 runs:
   using: 'docker'
   image: 'dockerfile'
