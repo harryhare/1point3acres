@@ -11,6 +11,6 @@ outputs:
     description: 'log'
 runs:
   using: 'docker'
-  image: 'docker/dockerfile'
+  image: 'dockerfile'
   args:
     - ${{ inputs.users }}

@@ -1,4 +1,4 @@
-# for running docker locally
+# for public github action
 # debian
 # size: 729MB
 from debian:latest
