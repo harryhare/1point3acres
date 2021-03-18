@@ -8,9 +8,10 @@ from debian:latest
 run apt-get update #-oAcquire::AllowInsecureRepositories=true
 run apt-get -y install autoconf python3 python3-pip cmake libtool tesseract-ocr
 run pip3 install requests lxml pytesseract cssselect awslambdaric
-workdir /app
+workdir /app/src
 copy example /app/example/
-copy *.py *.json /app/
+copy src /app/src/
+copy configure /app/configure/
 env PYTHONIOENCODING=utf8
 ENTRYPOINT ["python3","-m","awslambdaric"]
 CMD ["app.handler"]
