@@ -29,6 +29,10 @@
     ![](screenshots/repo_secret_1.png)
     ![](screenshots/repo_secret_2.png)
     
+* enable github action
+    ![](screenshots/repo_action_1.png)
+    ![](screenshots/repo_action_2.png)
+    
 * 做完上面的步骤，就完成了所有操作，github 会在每天的 北京时间9:00.am（UTC 1:00am.） 左右自动执行签到和答题程序。
 
   如果你想验证下用户名密码是否设置正确，可以到 git action 页面手动执行， 查看log中是否有"签到成功"
@@ -37,8 +41,8 @@
   
   github 每天自动执行的log 也可以在这里看到。
   
-    ![](screenshots/repo_action_1.png)
-    ![](screenshots/repo_action_2.png)
+    ![](screenshots/repo_action_3.png)
+    ![](screenshots/repo_action_4.png)
 
 ### github action with docker
 
