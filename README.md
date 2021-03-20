@@ -21,21 +21,24 @@
 
 * fork 这个repo
 
-* 增加一个 repo secret: `USERS`, 格式如下，需代入你的用户名密码，具体操作见图片
-
+* 增加一个 repo secret: `USERS`, 格式如下，需代入你的用户名密码，
     ```text
     [{'username':'replace_with_your_username','password':'replace_with_your_password'}]
     ```
+    <details>
+    <summary>具体操作展开查看</summary>
     ![](screenshots/repo_secret_1.png)
     ---
     ![](screenshots/repo_secret_2.png)
-    
+    </details>
 * enable github action
-    
+    <details>
+    <summary>具体操作展开查看</summary>
     ![](screenshots/repo_action_1.png)
     ---
     ![](screenshots/repo_action_2.png)
-    
+    </details>
+
 * 做完上面的步骤，就完成了所有操作，github 会在每天的 北京时间9:00.am（UTC 1:00am.） 左右自动执行签到和答题程序。
 
   如果你想验证下用户名密码是否设置正确，可以到 git action 页面手动执行， 查看log中是否有"签到成功"
@@ -44,9 +47,13 @@
   
   github 每天自动执行的log 也可以在这里看到。
   
+    <details>
+    <summary>具体操作展开查看</summary>
+  
     ![](screenshots/repo_action_3.png)
-  ---
+    ---
     ![](screenshots/repo_action_4.png)
+    </details>
 
 ### github action with docker
 
