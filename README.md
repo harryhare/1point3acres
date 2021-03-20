@@ -27,6 +27,7 @@
     ```
     <details>
     <summary>具体操作展开查看</summary>
+    
     ![](screenshots/repo_secret_1.png)
     ---
     ![](screenshots/repo_secret_2.png)
@@ -34,6 +35,7 @@
 * enable github action
     <details>
     <summary>具体操作展开查看</summary>
+    
     ![](screenshots/repo_action_1.png)
     ---
     ![](screenshots/repo_action_2.png)
