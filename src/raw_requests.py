@@ -245,6 +245,8 @@ def get_daily_task_answer() -> (str, str, str):
 				if answers[k] == answer:
 					print(f"find answer: {answers[k]} option value: {k} ")
 					answer_id = k
+		if answer_id == "":
+			print(f"answer not found: {answer}")
 	else:
 		print("question not found")
 	return answer_id, form_hash, sec_hash
