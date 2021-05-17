@@ -228,7 +228,7 @@ def get_daily_task_answer() -> (str, str, str):
 	for node in answer_nodes:
 		id = node.get("value")
 		text = node.getparent().text_content()
-		answers[id] = text[2:]
+		answers[id] = text[2:].strip()  # 去掉前后的空格 fix https://github.com/harryhare/1point3acres/issues/3
 	print(f"answers: {answers}")
 	answer = ""
 	answer_id = ""
