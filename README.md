@@ -27,6 +27,7 @@
     ```text
     [{'username':'replace_with_your_username','password':'replace_with_your_password'}]
     ```
+    用户名一般是邮箱，就是你登录的时候填的那个东东
     <details>
     <summary>具体操作展开查看</summary>
     
