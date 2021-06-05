@@ -60,7 +60,10 @@
     ![](screenshots/repo_action_4.png)
     </details>
 
-### github action with docker
+* 好用请给个星
+  ![](screenshots/star.png)
+
+### github action with docker 模式
 
 * 随便选（建）一个github repo
 
