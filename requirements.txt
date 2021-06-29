@@ -1,6 +1,6 @@
 requests
 lxml
-pytesseract
+pytesseract==0.3.7
 Pillow
 cssselect
 
