@@ -8,6 +8,7 @@ import lxml.html as html
 import questions
 from sys import exit
 import os
+import cfscrape
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
 referer = "https://www.1point3acres.com/bbs/"
@@ -27,6 +28,7 @@ get_question_url = "https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayques
 post_answer_url = "https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayquestion:pop"
 
 cookie_jar = None
+scraper = cfscrape.create_scraper()
 
 
 def save_error(response: requests.Response, error_desc: str = ""):
@@ -59,7 +61,7 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str) 
 	# 	"quickforward": "yes",
 	# 	"handlekey": "ls",
 	# }
-	# response = requests.post(login_url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
+	# response = scraper.post(login_url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
 
 	body = {
 		"formhash": form_hash,
@@ -70,7 +72,7 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str) 
 		"answer": "",
 	}
 	url = login_url_v3 % login_hash
-	response = requests.post(url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
+	response = scraper.post(url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
 
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "log in")
@@ -83,14 +85,17 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str) 
 
 def get_login_info_() -> (str, str):
 	global cookie_jar
-	login_hash = ""
-	form_hash = ""
 	header = {
 		"User-Agent": user_agent,
 		"Referer": referer
 	}
-	response = requests.get(get_login_url, headers=header)
+	response = scraper.get("https://www.1point3acres.com/bbs/", headers=header)
 	cookie_jar = response.cookies
+
+	login_hash = ""
+	form_hash = ""
+	response = requests.get(get_login_url, headers=header, cookies=cookie_jar)
+	cookie_jar.update(response.cookies)
 	check_status_code(response, "get login info")
 	pattern = re.compile("loginhash=([0-9a-zA-Z]+)")
 	login_hashes = pattern.findall(response.text)
@@ -150,7 +155,7 @@ def get_verify_code_(id_hash) -> str:
 		"User-Agent": user_agent,
 		"Referer": referer
 	}
-	#print(cookie_jar)
+	# print(cookie_jar)
 	response = requests.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get verify code phase 1 error")
