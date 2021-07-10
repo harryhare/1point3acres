@@ -44,6 +44,16 @@ def get_verify_code(id_hash) -> str:
 	return verify_code
 
 
+# 如果 login 失败, 后面的操作没必要再做，直接 exit
+def daily_login(username: str, password_hashed: str):
+	print("do login...")
+	form_hash, login_hash = get_login_info_()
+	if form_hash == "" or login_hash == "":
+		print("wrong login info")
+		exit(-1)
+	return login(username, password_hashed, form_hash, login_hash)
+
+
 def daily_checkin() -> bool:
 	print("do daily checkin...")
 	form_hash, sec_hash = get_checkin_info_()
@@ -68,7 +78,7 @@ def daily_question() -> bool:
 
 def do_all(username: str, password: str):
 	print(f"for user: {username[:3]}...{username[-2:]}")
-	login(username, password)
+	daily_login(username, password)
 	daily_checkin()
 	daily_question()
 	return
