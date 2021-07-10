@@ -11,8 +11,11 @@ import os
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
 referer = "https://www.1point3acres.com/bbs/"
+
+get_login_url = "https://www.1point3acres.com/bbs/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login"
 login_url = "https://www.1point3acres.com/bbs/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1"
 login_url_v2 = "https://www.1point3acres.com/bbs/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1"
+login_url_v3 = "https://www.1point3acres.com/bbs/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=%s&inajax=1"
 
 get_verify_code_url = "https://www.1point3acres.com/bbs/misc.php?mod=seccode&action=update&idhash=%s&inajax=1&ajaxtarget=seccode_%s"
 check_verify_code_url = "https://www.1point3acres.com/bbs/misc.php?mod=seccode&action=check&inajax=1&&idhash=%s&secverify=%s"
@@ -32,7 +35,7 @@ def save_error(response: requests.Response, error_desc: str = ""):
 	if os.name == "posix":
 		tmpfilename = "/tmp/" + tmpfilename
 	f = open("tmp.html", "w", encoding="utf-8")
-	f.write(response.request)
+	f.write(response.text)
 	f.close()
 
 
@@ -42,27 +45,68 @@ def check_status_code(response: requests.Response, error_desc: str = ""):
 		exit(-1)
 
 
-def login(username: str, password_hashed: str):
+def login(username: str, password_hashed: str, form_hash: str, login_hash: str) -> bool:
 	global cookie_jar
-	print("do login....")
+	print("try login...")
 	header = {
 		"User-Agent": user_agent,
 		'Content-Type': 'application/x-www-form-urlencoded',
 	}
+	# body = {
+	# 	"username": username,
+	# 	"password": password_hashed,
+	# 	"cookietime": "2592000",  # 30 days
+	# 	"quickforward": "yes",
+	# 	"handlekey": "ls",
+	# }
+	# response = requests.post(login_url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
+
 	body = {
+		"formhash": form_hash,
+		"referer": "https://www.1point3acres.com/bbs/",
 		"username": username,
 		"password": password_hashed,
-		"cookietime": "2592000",  # 30 days
-		"quickforward": "yes",
-		"handlekey": "ls",
+		"questionid": "0",
+		"answer": "",
 	}
-	response = requests.post(login_url, headers=header, data=urllib.parse.urlencode(body))
-	cookie_jar = response.cookies
+	url = login_url_v3 % login_hash
+	response = requests.post(url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
+
+	cookie_jar.update(response.cookies)
 	check_status_code(response, "log in")
 	if "登录失败" in response.text:
 		print("用户名密码错误")
 		print(response.text)
 		exit(-1)
+	return True
+
+
+def get_login_info_() -> (str, str):
+	global cookie_jar
+	login_hash = ""
+	form_hash = ""
+	header = {
+		"User-Agent": user_agent,
+		"Referer": referer
+	}
+	response = requests.get(get_login_url, headers=header)
+	cookie_jar = response.cookies
+	check_status_code(response, "get login info")
+	pattern = re.compile("loginhash=([0-9a-zA-Z]+)")
+	login_hashes = pattern.findall(response.text)
+	if len(login_hashes) >= 1:
+		login_hash = login_hashes[0]
+	else:
+		save_error(response, "login hash not found")
+		exit(-1)
+	pattern = re.compile('input type="hidden" name="formhash" value="([0-9a-zA-Z]+)"')
+	form_hashes = pattern.findall(response.text)
+	if len(form_hashes) >= 1:
+		form_hash = form_hashes[0]
+	else:
+		save_error(response, "sec hash not found")
+		exit(-1)
+	return form_hash, login_hash
 
 
 def get_checkin_info_() -> (str, str):
@@ -101,11 +145,12 @@ def get_checkin_info_() -> (str, str):
 
 def get_verify_code_(id_hash) -> str:
 	global cookie_jar
-	print("get verify code ...")
+	print("get verify code...")
 	header = {
 		"User-Agent": user_agent,
 		"Referer": referer
 	}
+	#print(cookie_jar)
 	response = requests.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get verify code phase 1 error")
