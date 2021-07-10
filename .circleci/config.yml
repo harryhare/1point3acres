@@ -8,10 +8,21 @@ jobs:
       - run:
           command: echo "hello world" # run the `echo` command
       - run:
+          name: basic info
           command: |
             whoami
             pwd
+
       - run:
+          name: dependencies
           command: |
-            apt update
+            chmod +x prepare.sh
+            ./prepare.sh
+
+      - run:
+          name: run app
+          command: |
+            cd src && python3 server.py
+
+
 
