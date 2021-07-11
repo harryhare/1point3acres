@@ -1,3 +1,7 @@
+# 抄自
+# https://github.com/harryhare/udacity_cloud_devops_projects/blob/master/l4_circleci/.circleci/config.yml
+# https://circleci.com/docs/2.0/hello-world/
+# https://discuss.circleci.com/t/cron-job-every-x-hours/38039
 version: 2.1
 jobs:
   build:
