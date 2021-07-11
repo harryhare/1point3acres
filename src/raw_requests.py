@@ -10,7 +10,7 @@ import questions
 from sys import exit
 import os
 
-#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 referer = "https://www.1point3acres.com/bbs/"
@@ -32,8 +32,10 @@ post_answer_url = "https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayquest
 cookie_jar = None
 
 worker = "dry-boat-3d52.harryhare.workers.dev"
-ip = '104.26.8.210'
+#ip = '104.26.8.210'
+ip = '116.234.47.7'
 proxy = CFProxy(worker, user_agent, ip)
+
 
 def save_error(response: requests.Response, error_desc: str = ""):
 	print(f"{error_desc} 未知错误，查看tmp.html，了解详情")
@@ -99,7 +101,7 @@ def get_login_info_() -> (str, str):
 		"Referer": referer
 	}
 	proxy = CFProxy(worker, user_agent, ip)
-	response = proxy.get("https://www.1point3acres.com/bbs/",headers=header)
+	response = proxy.get("https://www.1point3acres.com/bbs/", headers=header)
 	if (response.status_code != 200):
 		print("stop by cloudflare")
 		exit(-1)
@@ -107,7 +109,7 @@ def get_login_info_() -> (str, str):
 
 	login_hash = ""
 	form_hash = ""
-	#response = requests.get(get_login_url, headers=header, cookies=cookie_jar)
+	# response = requests.get(get_login_url, headers=header, cookies=cookie_jar)
 	response = proxy.get(get_login_url, headers=header)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get login info")
@@ -137,7 +139,7 @@ def get_checkin_info_() -> (str, str):
 		"Referer": referer
 	}
 	# response = requests.get(get_checkin_url, headers=header, cookies=cookie_jar)
-	response = proxy.get(get_checkin_url, headers=header)
+	response = proxy.get(get_checkin_url, headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get checkin info")
 	if "您今天已经签到过了或者签到时间还未开始" in response.text:
@@ -172,7 +174,7 @@ def get_verify_code_(id_hash) -> str:
 	}
 	# print(cookie_jar)
 	# response = requests.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
-	response = proxy.get(get_verify_code_url % (id_hash, id_hash), headers=header)
+	response = proxy.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get verify code phase 1 error")
 	# misc.php?mod = seccode & update = 86288 & idhash = S0
@@ -185,8 +187,8 @@ def get_verify_code_(id_hash) -> str:
 		print("response 中没有 验证码 的 url")
 		print(response.text)
 		exit(-1)
-	#response = requests.get(verify_code_url, headers=header, cookies=cookie_jar)
-	response = proxy.get(verify_code_url, headers=header)
+	# response = requests.get(verify_code_url, headers=header, cookies=cookie_jar)
+	response = proxy.get(verify_code_url, headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get verify code phase 2 error")
 	# print(len(response.content)) # 文件大小
@@ -210,8 +212,8 @@ def check_verify_code_(id_hash, code):
 		# "Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
 		"Referer": referer
 	}
-	#response = requests.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
-	response = proxy.get(check_verify_code_url % (id_hash, code), headers=header)
+	# response = requests.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
+	response = proxy.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "check verify code phase 1 error")
 	if "succeed" in response.text:
@@ -242,8 +244,8 @@ def do_daily_checkin_(verify_code: str, form_hash: str, sec_hash: str = "S00") -
 		"seccodeverify": verify_code
 	}
 
-	#response = requests.post(post_checkin_url, headers=header, data=body, cookies=cookie_jar)
-	response = proxy.post(post_checkin_url, headers=header, data=body)
+	# response = requests.post(post_checkin_url, headers=header, data=body, cookies=cookie_jar)
+	response = proxy.post(post_checkin_url, headers=header, data=body, cookies=cookie_jar)
 	check_status_code(response, "daily checkin")
 	if "您需要先登录才能继续本操作" in response.text:  # cookie 出错
 		print("login error，cookie missing")
@@ -273,8 +275,8 @@ def get_daily_task_answer() -> (str, str, str):
 		"User-Agent": user_agent,
 		"Referer": referer
 	}
-	#response = requests.get(get_question_url, headers=header, cookies=cookie_jar)
-	response = proxy.get(get_question_url, headers=header)
+	# response = requests.get(get_question_url, headers=header, cookies=cookie_jar)
+	response = proxy.get(get_question_url, headers=header, cookies=cookie_jar)
 	check_status_code(response, "get daily question")
 	if "您今天已经参加过答题，明天再来吧！" in response.text:
 		print("已答题")
@@ -338,8 +340,8 @@ def do_daily_question_(answer: str, verify_code: str, form_hash: str, sec_hash: 
 	}
 	# 网站的原版请求是 multipart/form-data ，但是我发现用 application/x-www-form-urlencoded 也是可以的
 	# response = scraper.post(post_answer_url, files=body, headers=header, cookies=cookie_jar)
-	#response = requests.post(post_answer_url, data=body, headers=header, cookies=cookie_jar)
-	response = proxy.post(post_answer_url, data=body, headers=header)
+	# response = requests.post(post_answer_url, data=body, headers=header, cookies=cookie_jar)
+	response = proxy.post(post_answer_url, data=body, headers=header, cookies=cookie_jar)
 	check_status_code(response, "post answer")
 	if "抱歉，您的请求来路不正确或表单验证串不符，无法提交" in response.text:
 		print("抱歉，您的请求来路不正确或表单验证串不符，无法提交")
