@@ -1,5 +1,7 @@
 ![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_bash.yml/badge.svg)
 
+目前遇到 被cloudflare 阻挡的问题，还在修复中，修复后会更新
+
 # 1point3acres
 
 [一亩三分地](https://www.1point3acres.com/bbs/) 自动签到、答题

@@ -36,8 +36,12 @@ def save_error(response: requests.Response, error_desc: str = ""):
 	tmpfilename = "tmp.html"
 	if os.name == "posix":
 		tmpfilename = "/tmp/" + tmpfilename
+	# conent 是字节
+	# text 是字符串
 	f = open("tmp.html", "w", encoding="utf-8")
 	f.write(response.text)
+	# f = open("tmp.html", "wb", encoding="utf-8")
+	# f.write(response.content)
 	f.close()
 
 
@@ -90,7 +94,9 @@ def get_login_info_() -> (str, str):
 		"Referer": referer
 	}
 	scraper = cfscrape.create_scraper()
-	response = scraper.get("https://www.1point3acres.com/bbs/", headers=header)
+	response = requests.get("https://www.1point3acres.com/bbs/",headers=header)
+	if response.status_code==503:
+		pass
 	if (response.status_code != 200):
 		print("stop by cloudflare")
 		exit(-1)
@@ -98,8 +104,8 @@ def get_login_info_() -> (str, str):
 
 	login_hash = ""
 	form_hash = ""
-	# response = requests.get(get_login_url, headers=header, cookies=cookie_jar)
-	response = scraper.get(get_login_url, headers=header, cookies=cookie_jar)
+	response = requests.get(get_login_url, headers=header, cookies=cookie_jar)
+	#response = scraper.get(get_login_url, headers=header, cookies=cookie_jar)
 	cookie_jar.update(response.cookies)
 	check_status_code(response, "get login info")
 	pattern = re.compile("loginhash=([0-9a-zA-Z]+)")
