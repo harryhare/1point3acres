@@ -1,0 +1,23 @@
+name: 'get credit everyday'
+
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: '45 0 * * *'
+
+jobs:
+  run:
+    #runs-on: macos-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: |
+          brew install  tesseract
+          pip3 intall -r requirements.txt
+
+      - name: run the script
+        run: |
+          cd src && python3 service.py "${{ secrets.USERS }}"
