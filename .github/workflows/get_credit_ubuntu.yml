@@ -1,4 +1,4 @@
-name: 'get credit everyday'
+name: 'get credit ubuntu'
 
 on:
   workflow_dispatch:

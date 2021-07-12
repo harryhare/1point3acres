@@ -1,4 +1,4 @@
-name: 'get credit everyday'
+name: 'get credit macos(wip, for test)'
 
 on:
   workflow_dispatch:
