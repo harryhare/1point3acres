@@ -27,7 +27,7 @@ jobs:
           name: dependencies
           command: |
             apt-get update
-            apt-get -y install python3 python3-pip tesseract-ocr
+            apt-get -y install python3 python3-pip  python3-venv tesseract-ocr
             python3 -m venv venv
             . venv/bin/activate
             pip3 install -r requirements.txt

@@ -1,3 +1,4 @@
+# 目前 只有第一次能跑成功
 name: 'get credit with flaresolverr'
 
 on:
@@ -11,7 +12,8 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-      - name: docker test 1
+
+      - name: start flaresolverr
         run: |
           docker run -d \
             --name=flaresolverr \
@@ -20,7 +22,7 @@ jobs:
             --restart unless-stopped \
             ghcr.io/flaresolverr/flaresolverr:latest
 
-      - name: docker test 2
+      - name: curl flaresolverr
         run: |
           sleep 30
           curl -L -X POST 'http://localhost:8191/v1' \
@@ -35,13 +37,13 @@ jobs:
             }
           }' > flaresolverr.json
 
-      - name: docker test
+      - name: stop flaresolverr
         run: |
           docker ps
           docker stop flaresolverr
 
       # for debug
-      - name: upload artifact
+      - name: upload flaresolverr.json
         uses: actions/upload-artifact@v2
         with:
           name: "flaresolverr.json"
