@@ -1,0 +1,55 @@
+name: 'get credit with flaresolverr'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 0 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: docker test 1
+        run: |
+          docker run -d \
+            --name=flaresolverr \
+            -p 8191:8191 \
+            -e LOG_LEVEL=info \
+            --restart unless-stopped \
+            ghcr.io/flaresolverr/flaresolverr:latest
+
+      - name: docker test 2
+        run: |
+          sleep 30
+          curl -L -X POST 'http://localhost:8191/v1' \
+          -H 'Content-Type: application/json' \
+          --data-raw '{
+            "cmd": "request.get",
+            "url":"https://www.1point3acres.com/bbs/",
+            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW...",
+            "maxTimeout": 60000,
+            "headers": {
+              "X-Test": "Testing 123..."
+            }
+          }' > flaresolverr.json
+
+      - name: docker test
+        run: |
+          docker ps
+          docker stop flaresolverr
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: "flaresolverr.json"
+          path: flaresolverr.json
+
+#      - name: install dependencies
+#        run: |
+#          sudo /bin/bash prepare.sh
+#
+#      - name: run the script
+#        run: |
+#          cd src && python3 service.py "${{ secrets.USERS }}"
