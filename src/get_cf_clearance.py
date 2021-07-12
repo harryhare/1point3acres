@@ -2,7 +2,9 @@ import json
 import http.cookies
 
 def get_basic_cookie():
-	# f = open("../flaresolverr.json", "rb")  # gbk 编码要用 tb 打开
+	# gbk 编码要用 tb 打开
+	# https://stackoverflow.com/questions/28165639/unicodedecodeerror-gbk-codec-cant-decode-byte-0x80-in-position-0-illegal-mult
+	# f = open("../flaresolverr.json", "rb")
 	# data = json.load(f)
 	# f.close()
 	# cookies = data['solution']['cookies']

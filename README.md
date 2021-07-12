@@ -1,4 +1,4 @@
-![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_bash.yml/badge.svg)
+![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu.yml/badge.svg)
 
 
 **目前遇到 被cloudflare 阻挡的问题，还在修复中，修复后会更新**
