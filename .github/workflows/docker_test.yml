@@ -1,4 +1,4 @@
-name: 'get credit ubuntu'
+name: 'test'
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
       - name: docker test 3
         run: |
           curl localhost:8080
-          
+
       - name: docker test 4
         run: |
           docker stop nginx
