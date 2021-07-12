@@ -9,6 +9,7 @@ import lxml.html as html
 import questions
 from sys import exit
 import os
+import http.cookies
 
 # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
@@ -30,6 +31,15 @@ get_question_url = "https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayques
 post_answer_url = "https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayquestion:pop"
 
 cookie_jar = None
+
+
+def new_cookie():
+	global cookie_jar
+	#raw_cookie_line = 'cf_clearance=7c69df91aa6357870371924f7197eeb627ff7e86-1626047396-0-150; Path=/;'
+	raw_cookie_line = 'cf_clearance=7c69df91aa6357870371924f7197eeb627ff7e86-1626047396-0-150'
+	simple_cookie = http.cookies.SimpleCookie(raw_cookie_line)
+	return simple_cookie
+
 
 worker = "www.laika42.top"
 # ip = '104.26.8.210'
@@ -94,23 +104,28 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str) 
 	return True
 
 
+#		"cf_clearance":"7c69df91aa6357870371924f7197eeb627ff7e86-1626047396-0-150",
+
 def get_login_info_() -> (str, str):
 	global cookie_jar
 	global proxy
 	header = {
 		"User-Agent": user_agent,
-		"Referer": referer
+		"Referer": referer,
 	}
-	proxy = CFProxy(worker, user_agent, ip)
-	response = requests.get("https://www.1point3acres.com/bbs/", headers=header)
+	# proxy = CFProxy(worker, user_agent, ip)
+	simple_cookie=new_cookie()
+	cookie_jar = requests.cookies.RequestsCookieJar()
+	cookie_jar.update(simple_cookie)
+	response = requests.get("https://www.1point3acres.com/bbs/", headers=header, cookies=cookie_jar)
 	# response = proxy.get("https://www.1point3acres.com/bbs/", headers=header)
-	if (response.status_code==503):
+	if (response.status_code == 503):
 		print("stop by cloudflare", response.status_code)
 		exit(-1)
 	if (response.status_code != 200):
 		print("wrong status code: ", response.status_code)
 		exit(-1)
-	cookie_jar = response.cookies
+	cookie_jar.update(response.cookies)
 
 	login_hash = ""
 	form_hash = ""
