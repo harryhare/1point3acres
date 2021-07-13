@@ -1,20 +1,21 @@
 ![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu_flaresolverr.yml/badge.svg)
 
----
+# Notice
 
-Github action **get credit with flaresolverr** 这个workflow 有一定概率成功（目前试了三次只有一次是成功的） 
+Github Action **get credit with flaresolverr** 这个workflow 有一定概率成功（目前试了三次只有一次是成功的） 
 
 如果想尝试可以拉下最新代码
 
 2021.07.13
----
+
+
 **尝试了很多方法都行不通，宣布失败**
 
 但由于 cloudflare 是根据 IP 来阻挡的，所以这个程序依然可以在本地运行 
 
 2021.07.13
 
----
+
 **目前遇到 被 cloudflare 阻挡的问题，还在修复中，修复后会更新**
 
 2021.07.11
