@@ -1,7 +1,7 @@
 ![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu_flaresolverr.yml/badge.svg)
 
 
-# Notice
+### Notice
 
 **Github Action 模式下** `get credit with flaresolverr` **这个workflow 有一定概率成功**
 
@@ -106,7 +106,7 @@
 * 好用请给个星
   ![](screenshots/star.png)
 
-### github action with docker 模式（不稳定）
+### ~~github action with docker 模式（已失效）~~
 
 * 随便选（建）一个github repo
 
