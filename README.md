@@ -2,12 +2,13 @@
 
 # Notice
 
-Github Action **get credit with flaresolverr** 这个workflow 有一定概率成功（目前试了三次只有一次是成功的） 
+Github Action `get credit with flaresolverr` 这个workflow 有一定概率成功（目前试了三次只有一次是成功的） 
 
 如果想尝试可以拉下最新代码
 
 2021.07.13
 
+<br>
 
 **尝试了很多方法都行不通，宣布失败**
 
@@ -15,6 +16,7 @@ Github Action **get credit with flaresolverr** 这个workflow 有一定概率成
 
 2021.07.13
 
+<br>
 
 **目前遇到 被 cloudflare 阻挡的问题，还在修复中，修复后会更新**
 
