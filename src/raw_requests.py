@@ -11,8 +11,8 @@ from sys import exit
 import os
 import get_cf_clearance
 
-# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
+#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
 #user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 referer = "https://www.1point3acres.com/bbs/"

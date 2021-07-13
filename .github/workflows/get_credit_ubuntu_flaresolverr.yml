@@ -30,7 +30,7 @@ jobs:
           --data-raw '{
             "cmd": "request.get",
             "url":"https://www.1point3acres.com/bbs/",
-            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW...",
+            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0",
             "maxTimeout": 60000
           }' > flaresolverr.json
 
