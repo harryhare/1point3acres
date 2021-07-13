@@ -1,4 +1,4 @@
-name: 'which ip'
+name: 'which ip （for test only）'
 
 on:
   workflow_dispatch:

@@ -1,5 +1,5 @@
 # 目前 只有第一次能跑成功
-name: 'get credit with flaresolverr'
+name: 'get credit with flaresolverr（sometimes work）'
 
 on:
   workflow_dispatch:
