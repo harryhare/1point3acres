@@ -1,7 +1,7 @@
 ![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu_flaresolverr.yml/badge.svg)
 
 
-### Notice
+## Notice
 
 **Github Action 模式下** `get credit with flaresolverr` **这个workflow 有一定概率成功**
 
