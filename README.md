@@ -1,5 +1,12 @@
-![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu.yml/badge.svg)
+![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu_flaresolverr.yml/badge.svg)
 
+---
+
+Github action **get credit with flaresolverr** 这个workflow 有一定概率成功（目前试了三次只有一次是成功的） 
+
+如果想尝试可以拉下最新代码
+
+2021.07.13
 ---
 **尝试了很多方法都行不通，宣布失败**
 
