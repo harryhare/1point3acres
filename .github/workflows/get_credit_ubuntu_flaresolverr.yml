@@ -24,6 +24,8 @@ jobs:
 
       - name: curl flaresolverr
         run: |
+          curl https://ifconfig.io/ip
+          curl https://ifconfig.io/country_code
           sleep 30
           curl -L -X POST 'http://localhost:8191/v1' \
           -H 'Content-Type: application/json' \
@@ -33,7 +35,7 @@ jobs:
             "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0",
             "maxTimeout": 60000
           }' > flaresolverr.json
-          cat flaresolverr.json|grep cf_cf_clearance
+          cat flaresolverr.json|grep cf_clearance
 
       - name: stop flaresolverr
         run: |
