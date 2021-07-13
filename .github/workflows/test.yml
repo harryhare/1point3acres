@@ -1,4 +1,4 @@
-name: 'which ip （for test only）'
+name: '(! test only) which ip'
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: 'get credit ubuntu （for test only）'
+name: '(! test only) get credit ubuntu'
 
 on:
   workflow_dispatch:
