@@ -133,5 +133,5 @@ dmypy.json
 
 # output
 *.gif
+*.png
 *.html
-

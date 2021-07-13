@@ -1,8 +1,18 @@
 ![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu.yml/badge.svg)
 
+---
+**尝试了很多方法都行不通，宣布失败**
 
-**目前遇到 被cloudflare 阻挡的问题，还在修复中，修复后会更新**
+但由于 cloudflare 是根据 IP 来阻挡的，所以这个程序依然可以在本地运行 
+
+2021.07.13
+
+---
+**目前遇到 被 cloudflare 阻挡的问题，还在修复中，修复后会更新**
+
 2021.07.11
+
+---
 
 # 1point3acres
 
@@ -14,7 +24,7 @@
 
 * 程序会在指定的时间每天运行一次，一次配置，永远执行，设好后就再不用管
 
-* 配置简单，一分钟搞定，使用 github action 模式，不依赖 github 以外的东西，只要 fork 本repo后设置 repo secret 即可
+* 配置简单，一分钟搞定，~~使用 github action 模式，不依赖 github 以外的东西，只要 fork 本repo后设置 repo secret 即可~~
 
 * 支持多用户签到，批量用户签到，把用户名密码加到`USERS`数组中即可
 
@@ -22,8 +32,26 @@
 
 下面几种执行模式任选一种即可。
 
+### 本地 crontab 模式（推荐）
 
-### github action 模式（推荐）
+* 修改 configure/data.json，用你的用户名密码替换文件中的相应字段
+
+* 安装依赖
+以 ubuntu 为例，其他系统请用相应的方式安装依赖
+    ```bash
+    sudo /bin/bash prepare.sh
+    ```
+    
+* crontab
+    ```
+    crontab -e
+    ```
+    ```text
+    15 8 * * * cd /replace_with_path_to_repo/src && python3 service.py 2>&1 1>/tmp/1point3acres.log
+    ```
+
+
+### ~~github action 模式（已失效）~~
 
 * fork 这个repo
 
@@ -67,7 +95,7 @@
 * 好用请给个星
   ![](screenshots/star.png)
 
-### github action with docker 模式
+### ~~github action with docker 模式（已失效）~~
 
 * 随便选（建）一个github repo
 
@@ -100,7 +128,7 @@
 	```
 
 
-### AWS-lambda 模式
+### ~~AWS-lambda 模式 （已失效）~~
 
 * 修改 configure/data.json，用你的用户名密码替换文件中的相应字段
 * aws 创建 docker registry, 修改 makefile 的 image 地址
@@ -108,23 +136,6 @@
 * aws 创建 lambda，选择第一步创建的 image，设置trigger
 
 
-### crontab 模式
-
-* 修改 configure/data.json，用你的用户名密码替换文件中的相应字段
-
-* 安装依赖
-以 ubuntu 为例，其他系统请用相应的方式安装依赖
-    ```bash
-    sudo /bin/bash prepare.sh
-    ```
-    
-* crontab
-    ```
-    crontab -e
-    ```
-    ```text
-    15 0 * * * python3 /replace_with_path_to_repo/service.py 2>&1 1>/dev/null
-    ```
 
 ## 其他
 

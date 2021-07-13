@@ -69,7 +69,7 @@ def get_login_info_() -> (str, str):
 	}
 	# proxy = CFProxy(worker, user_agent, ip)
 	cookie_jar = requests.cookies.RequestsCookieJar()
-	cookie_jar.update(basic_cookie)
+	#cookie_jar.update(basic_cookie)
 	response = requests.get("https://www.1point3acres.com/bbs/", headers=header, cookies=cookie_jar)
 	# response = proxy.get("https://www.1point3acres.com/bbs/", headers=header)
 	if (response.status_code == 503):
