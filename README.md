@@ -62,7 +62,7 @@
     ```
 
 
-### ~~github action 模式（已失效）~~
+### github action 模式（不稳定）
 
 * fork 这个repo
 
@@ -106,7 +106,7 @@
 * 好用请给个星
   ![](screenshots/star.png)
 
-### ~~github action with docker 模式（已失效）~~
+### github action with docker 模式（不稳定）
 
 * 随便选（建）一个github repo
 
