@@ -12,7 +12,8 @@ import os
 import get_cf_clearance
 
 # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
+#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 referer = "https://www.1point3acres.com/bbs/"
 
@@ -69,7 +70,7 @@ def get_login_info_() -> (str, str):
 	}
 	# proxy = CFProxy(worker, user_agent, ip)
 	cookie_jar = requests.cookies.RequestsCookieJar()
-	#cookie_jar.update(basic_cookie)
+	cookie_jar.update(basic_cookie)
 	response = requests.get("https://www.1point3acres.com/bbs/", headers=header, cookies=cookie_jar)
 	# response = proxy.get("https://www.1point3acres.com/bbs/", headers=header)
 	if (response.status_code == 503):
