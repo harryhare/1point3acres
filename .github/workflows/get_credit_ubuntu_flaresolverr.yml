@@ -3,8 +3,8 @@ name: 'get credit with flaresolverr（sometimes work）'
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '45 0 * * *'
+#  schedule:
+#    - cron: '45 0 * * *'
 
 jobs:
   run:

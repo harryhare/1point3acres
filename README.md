@@ -62,7 +62,7 @@
     ```
 
 
-### github action 模式（不稳定）
+### ~~github action 模式（极不稳定）~~
 
 * fork 这个repo
 
