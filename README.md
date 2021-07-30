@@ -3,6 +3,14 @@
 
 ## Notice
 
+**程序已失效**
+
+论坛增加了google Google reCAPTCHA 验证码，导致程序失效
+
+部分账号被封号
+
+2021.07.30
+
 **Github Action 模式下** `get credit with flaresolverr` **这个workflow 有一定概率成功**
 
 目前我试了三次只有一次是成功的。如果想尝试可以拉下最新代码
@@ -43,7 +51,7 @@
 
 下面几种执行模式任选一种即可。
 
-### 本地 crontab 模式（推荐）
+### ~~本地 crontab 模式（由于验证码机制更改，现已失效）~~
 
 * 修改 configure/data.json，用你的用户名密码替换文件中的相应字段
 
