@@ -3,6 +3,7 @@ import json
 import hashlib
 from raw_requests import *
 import sys
+from twocaptcha import TwoCaptcha
 
 
 # 签到流程
@@ -44,6 +45,22 @@ def get_verify_code(id_hash) -> str:
 	return verify_code
 
 
+def get_g_token(api_key, url) -> str:
+	solver = TwoCaptcha(api_key)
+	try:
+		result = solver.solve_captcha(
+			site_key='6LeCeskbAAAAAE-5ns6vBXkLrcly-kgyq6uAriBR',
+			page_url=url)
+
+	except Exception as e:
+		print(e)
+		exit(-1)
+		return ""
+	else:
+		print('solved: ' + str(result))
+		return result
+
+
 # 如果 login 失败, 后面的操作没必要再做，直接 exit
 def daily_login(username: str, password_hashed: str):
 	print("do login...")
@@ -61,10 +78,10 @@ def daily_checkin(api_key: str) -> bool:
 	time.sleep(2)
 	if form_hash == "":
 		return False
-	code = get_verify_code(sec_hash)
+	code = get_g_token(api_key, get_checkin_url)
 	if code == "":
 		return False
-	return do_daily_checkin_(verify_code=code, form_hash=form_hash, sec_hash=sec_hash)
+	return do_daily_checkin_(g_token=code, form_hash=form_hash, sec_hash=sec_hash)
 
 
 def daily_question(api_key: str) -> bool:
@@ -73,10 +90,10 @@ def daily_question(api_key: str) -> bool:
 	time.sleep(2)
 	if form_hash == "" or answer == "":
 		return False
-	code = get_verify_code(sec_hash)
+	code = get_g_token(api_key, get_checkin_url)
 	if code == "":
 		return False
-	return do_daily_question_(answer=answer, verify_code=code, form_hash=form_hash, sec_hash=sec_hash)
+	return do_daily_question_(answer=answer, g_token=code, form_hash=form_hash, sec_hash=sec_hash)
 
 
 def do_all(username: str, password: str, api_key: str):
@@ -98,9 +115,6 @@ def main(from_file: bool = False):
 	else:
 		api_key = sys.argv[1]
 		users = json.loads(sys.argv[2].replace("'", '"'))
-	print(users)
-	print(api_key)
-	exit(0)
 	for user in users:
 		m = hashlib.md5()
 		m.update(user["password"].encode("ascii"))

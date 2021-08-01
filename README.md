@@ -3,7 +3,17 @@
 
 ## Notice
 
-**程序已失效**
+**更新验证模块**
+
+使用此网站[2captcha.com](https://2captcha.com?from=12332166)提供的api。
+
+但是该API 收费，一亩三分地的验证码是 reCAPTCHA v2 - hard ，对应的[收费](https://2captcha.com/2captcha-api)是 $2.99/1000次请求
+
+如果想使用需要注册账号+充值只少3刀（单个账号可以用500天左右）+ 复制 apikey 替换configure/data.json 文件中的字段
+
+
+
+**程序失效**
 
 论坛增加了google Google reCAPTCHA 验证码，导致程序失效
 
@@ -39,7 +49,7 @@
 
 [一亩三分地](https://www.1point3acres.com/bbs/) 自动签到、答题
 
-一分钟快速设置，无 aws 依赖，验证码自动识别，一次性设置后再无需手动操作
+快速设置，无 aws 依赖，验证码自动识别，一次性设置后再无需手动操作
 
 * 程序会自动识别验证码
 
@@ -51,11 +61,16 @@
 
 ## how to use
 
-~~下面几种执行模式任选一种即可。~~
+下面几种执行模式任选一种即可。
 
-### ~~本地 crontab 模式（由于验证码机制更改，现已失效）~~
+### 本地 crontab 模式
 
-* 修改 configure/data.json，用你的用户名密码替换文件中的相应字段
+* 注册[2captcha.com](https://2captcha.com?from=12332166) 得到 apikey 并充值
+    <details>
+    <summary>具体操作展开查看</summary>
+    ![](screenshots/2captcha.png)
+    </details>
+* 修改 configure/data.json，用你的用户名,密码,apikey替换文件中的相应字段
 
 * 安装依赖
 以 ubuntu 为例，其他系统请用相应的方式安装依赖

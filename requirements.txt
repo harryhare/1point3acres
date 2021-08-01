@@ -1,7 +1,6 @@
 requests==2.22.0
 lxml==4.6.3
 cssselect==1.1.0
-pytesseract==0.3.7
-Pillow==8.2.0
+TwoCaptcha==0.0.1
 
 

@@ -1,9 +1,6 @@
 import requests
 import urllib.parse
 import re
-from PIL import Image
-from process_gif import get_code_from_gif
-from cfproxy import CFProxy
 import xml.dom.minidom as xml
 import lxml.html as html
 import questions
@@ -38,7 +35,9 @@ basic_cookie = get_cf_clearance.get_basic_cookie()
 worker = "www.laika42.top"
 # ip = '104.26.8.210'
 ip = '116.234.47.7'
-proxy = CFProxy(worker, user_agent, ip)
+
+
+# proxy = CFProxy(worker, user_agent, ip)
 
 
 def save_error(response: requests.Response, error_desc: str = ""):
@@ -63,7 +62,7 @@ def check_status_code(response: requests.Response, error_desc: str = ""):
 
 def get_login_info_() -> (str, str):
 	global cookie_jar
-	global proxy
+	# global proxy
 	header = {
 		"User-Agent": user_agent,
 		"Referer": referer,
@@ -176,69 +175,70 @@ def get_checkin_info_() -> (str, str):
 	return form_hash, sec_hash
 
 
-def get_verify_code_(id_hash) -> str:
-	global cookie_jar
-	print("get verify code...")
-	header = {
-		"User-Agent": user_agent,
-		"Referer": referer
-	}
-	# print(cookie_jar)
-	response = requests.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
-	# response = proxy.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
-	cookie_jar.update(response.cookies)
-	check_status_code(response, "get verify code phase 1 error")
-	# misc.php?mod = seccode & update = 86288 & idhash = S0
-	pattern = re.compile('src="([a-zA-Z0-9=&?.]+)"')
-	srcs = pattern.findall(response.text)
-	verify_code_url = ""
-	if len(srcs) >= 1:
-		verify_code_url = "https://www.1point3acres.com/bbs/" + srcs[0]
-	else:
-		print("response 中没有 验证码 的 url")
-		print(response.text)
-		exit(-1)
-	response = requests.get(verify_code_url, headers=header, cookies=cookie_jar)
-	# response = proxy.get(verify_code_url, headers=header, cookies=cookie_jar)
-	cookie_jar.update(response.cookies)
-	check_status_code(response, "get verify code phase 2 error")
-	# print(len(response.content)) # 文件大小
-	tmpfilename = "tmp.gif"
-	if os.name == "posix":
-		tmpfilename = "/tmp/" + tmpfilename
-	file = open(tmpfilename, "wb")
-	file.write(response.content)
-	file.close()
-	f = Image.open(tmpfilename)
-	# f.show()
-	return get_code_from_gif(f)
+#
+# def get_verify_code_(id_hash) -> str:
+# 	global cookie_jar
+# 	print("get verify code...")
+# 	header = {
+# 		"User-Agent": user_agent,
+# 		"Referer": referer
+# 	}
+# 	# print(cookie_jar)
+# 	response = requests.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
+# 	# response = proxy.get(get_verify_code_url % (id_hash, id_hash), headers=header, cookies=cookie_jar)
+# 	cookie_jar.update(response.cookies)
+# 	check_status_code(response, "get verify code phase 1 error")
+# 	# misc.php?mod = seccode & update = 86288 & idhash = S0
+# 	pattern = re.compile('src="([a-zA-Z0-9=&?.]+)"')
+# 	srcs = pattern.findall(response.text)
+# 	verify_code_url = ""
+# 	if len(srcs) >= 1:
+# 		verify_code_url = "https://www.1point3acres.com/bbs/" + srcs[0]
+# 	else:
+# 		print("response 中没有 验证码 的 url")
+# 		print(response.text)
+# 		exit(-1)
+# 	response = requests.get(verify_code_url, headers=header, cookies=cookie_jar)
+# 	# response = proxy.get(verify_code_url, headers=header, cookies=cookie_jar)
+# 	cookie_jar.update(response.cookies)
+# 	check_status_code(response, "get verify code phase 2 error")
+# 	# print(len(response.content)) # 文件大小
+# 	tmpfilename = "tmp.gif"
+# 	if os.name == "posix":
+# 		tmpfilename = "/tmp/" + tmpfilename
+# 	file = open(tmpfilename, "wb")
+# 	file.write(response.content)
+# 	file.close()
+# 	f = Image.open(tmpfilename)
+# 	# f.show()
+# 	return get_code_from_gif(f)
+#
+#
+# def check_verify_code_(id_hash, code):
+# 	global cookie_jar
+# 	print("check verify code...")
+#
+# 	header = {
+# 		"User-Agent": user_agent,
+# 		# "Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
+# 		"Referer": referer
+# 	}
+# 	response = requests.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
+# 	# response = proxy.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
+# 	cookie_jar.update(response.cookies)
+# 	check_status_code(response, "check verify code phase 1 error")
+# 	if "succeed" in response.text:
+# 		print("verify code is right")
+# 		return True
+# 	if "invalid" in response.text:
+# 		print("verify code is wrong")
+# 		return False
+# 	print("verify error")
+# 	print(response.text)
+# 	exit(-1)
+#
 
-
-def check_verify_code_(id_hash, code):
-	global cookie_jar
-	print("check verify code...")
-
-	header = {
-		"User-Agent": user_agent,
-		# "Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
-		"Referer": referer
-	}
-	response = requests.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
-	# response = proxy.get(check_verify_code_url % (id_hash, code), headers=header, cookies=cookie_jar)
-	cookie_jar.update(response.cookies)
-	check_status_code(response, "check verify code phase 1 error")
-	if "succeed" in response.text:
-		print("verify code is right")
-		return True
-	if "invalid" in response.text:
-		print("verify code is wrong")
-		return False
-	print("verify error")
-	print(response.text)
-	exit(-1)
-
-
-def do_daily_checkin_(verify_code: str, form_hash: str, sec_hash: str = "S00") -> bool:
+def do_daily_checkin_(g_token: str, form_hash: str, sec_hash: str = "S00") -> bool:
 	global cookie_jar
 	header = {
 		"User-Agent": user_agent,
@@ -254,7 +254,7 @@ def do_daily_checkin_(verify_code: str, form_hash: str, sec_hash: str = "S00") -
 		"sechash": sec_hash,
 		"seccodehash": sec_hash,
 		"seccodeverify": sec_hash,
-		"g-recaptcha-response": "",
+		"g-recaptcha-response": g_token,
 	}
 
 	response = requests.post(post_checkin_url, headers=header, data=body, cookies=cookie_jar)
@@ -337,7 +337,7 @@ def get_daily_task_answer() -> (str, str, str):
 	return answer_id, form_hash, sec_hash
 
 
-def do_daily_question_(answer: str, verify_code: str, form_hash: str, sec_hash: str = "SA00") -> bool:
+def do_daily_question_(answer: str, g_token: str, form_hash: str, sec_hash: str = "SA00") -> bool:
 	global cookie_jar
 	header = {
 		"User-Agent": user_agent,
@@ -348,7 +348,9 @@ def do_daily_question_(answer: str, verify_code: str, form_hash: str, sec_hash: 
 		"formhash": form_hash,
 		"answer": answer,
 		"sechash": sec_hash,
-		"seccodeverify": verify_code,
+		"seccodehash": sec_hash,
+		"seccodeverify": sec_hash,
+		"g-recaptcha-response": g_token,
 		"submit": "true"
 	}
 	# 网站的原版请求是 multipart/form-data ，但是我发现用 application/x-www-form-urlencoded 也是可以的
@@ -367,6 +369,9 @@ def do_daily_question_(answer: str, verify_code: str, form_hash: str, sec_hash: 
 		return False
 	elif "恭喜你，回答正确" in response.text:
 		print("答题成功")
+		return True
+	elif "抱歉，回答错误！扣除1大米" in response.text:
+		print("答案错了，请报 issue: https://github.com/harryhare/1point3acres/issues/new")
 		return True
 	else:
 		save_error(response, "post answer")
