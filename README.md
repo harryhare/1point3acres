@@ -65,9 +65,10 @@
 
 ### 本地 crontab 模式
 
-* 注册[2captcha.com](https://2captcha.com?from=12332166) 得到 apikey 并充值
+* 注册[2captcha.com](https://2captcha.com?from=12332166) 得到 apikey 并充值(可以用支付宝)
     <details>
     <summary>具体操作展开查看</summary>
+    
     ![](screenshots/2captcha.png)
     </details>
 * 修改 configure/data.json，用你的用户名,密码,apikey替换文件中的相应字段
