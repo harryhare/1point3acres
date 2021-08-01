@@ -1,3 +1,5 @@
+import random
+
 import requests
 import urllib.parse
 import re
@@ -245,9 +247,10 @@ def do_daily_checkin_(g_token: str, form_hash: str, sec_hash: str = "S00") -> bo
 		"Content-Type": "application/x-www-form-urlencoded",
 		"Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
 	}
+	emoji_list = ['kx', 'ng', 'ym', 'wl', 'nu', 'ch', 'fd', 'yl', 'shuai']
 	body = {
 		"formhash": form_hash,
-		"qdxq": "shuai",
+		"qdxq": random.choice(emoji_list),
 		"qdmod": 2,
 		"todaysay": None,
 		"fastreply": 14,
