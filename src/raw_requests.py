@@ -12,8 +12,8 @@ import os
 import get_cf_clearance
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
-#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
-#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 referer = "https://www.1point3acres.com/bbs/"
 
@@ -252,7 +252,9 @@ def do_daily_checkin_(verify_code: str, form_hash: str, sec_hash: str = "S00") -
 		"todaysay": None,
 		"fastreply": 14,
 		"sechash": sec_hash,
-		"seccodeverify": verify_code
+		"seccodehash": sec_hash,
+		"seccodeverify": sec_hash,
+		"g-recaptcha-response": "",
 	}
 
 	response = requests.post(post_checkin_url, headers=header, data=body, cookies=cookie_jar)

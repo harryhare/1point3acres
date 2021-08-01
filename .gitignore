@@ -135,3 +135,5 @@ dmypy.json
 *.gif
 *.png
 *.html
+
+test_2captcha.py

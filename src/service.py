@@ -55,7 +55,7 @@ def daily_login(username: str, password_hashed: str):
 	return login(username, password_hashed, form_hash, login_hash)
 
 
-def daily_checkin() -> bool:
+def daily_checkin(api_key: str) -> bool:
 	print("do daily checkin...")
 	form_hash, sec_hash = get_checkin_info_()
 	time.sleep(2)
@@ -67,7 +67,7 @@ def daily_checkin() -> bool:
 	return do_daily_checkin_(verify_code=code, form_hash=form_hash, sec_hash=sec_hash)
 
 
-def daily_question() -> bool:
+def daily_question(api_key: str) -> bool:
 	print("do daily question...")
 	answer, form_hash, sec_hash, = get_daily_task_answer()
 	time.sleep(2)
@@ -79,25 +79,32 @@ def daily_question() -> bool:
 	return do_daily_question_(answer=answer, verify_code=code, form_hash=form_hash, sec_hash=sec_hash)
 
 
-def do_all(username: str, password: str):
+def do_all(username: str, password: str, api_key: str):
 	print(f"for user: {username[:3]}...{username[-2:]}")
 	daily_login(username, password)
-	daily_checkin()
-	daily_question()
+	daily_checkin(api_key)
+	daily_question(api_key)
 	return
 
 
 def main(from_file: bool = False):
 	users = []
+	api_key = ""
 	if from_file or len(sys.argv) == 1:
 		fp = open("../configure/data.json")
-		users = json.load(fp)
+		data = json.load(fp)
+		users = data["users"]
+		api_key = data["api_key"]
 	else:
-		users = json.loads(sys.argv[1].replace("'", '"'))
+		api_key = sys.argv[1]
+		users = json.loads(sys.argv[2].replace("'", '"'))
+	print(users)
+	print(api_key)
+	exit(0)
 	for user in users:
 		m = hashlib.md5()
 		m.update(user["password"].encode("ascii"))
-		do_all(user["username"], m.hexdigest())
+		do_all(user["username"], m.hexdigest(), api_key)
 
 
 if __name__ == "__main__":
