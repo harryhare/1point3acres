@@ -7,6 +7,7 @@ import questions
 from sys import exit
 import os
 import get_cf_clearance
+import random
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
 # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleW..."
@@ -245,12 +246,13 @@ def do_daily_checkin_(g_token: str, form_hash: str, sec_hash: str = "S00") -> bo
 		"Content-Type": "application/x-www-form-urlencoded",
 		"Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
 	}
+	emoji_list = ['kx', 'ng', 'ym', 'wl', 'nu', 'ch', 'fd', 'yl', 'shuai']
 	body = {
 		"formhash": form_hash,
-		"qdxq": "shuai",
-		"qdmod": 2,
-		"todaysay": None,
-		"fastreply": 14,
+		"qdxq": random.choice(emoji_list),
+		"qdmod": 1,
+		"todaysay": requests.get('https://v1.jinrishici.com/all.txt').text,
+		"fastreply": 0,
 		"sechash": sec_hash,
 		"seccodehash": sec_hash,
 		"seccodeverify": sec_hash,
