@@ -29,6 +29,8 @@ from twocaptcha import TwoCaptcha
 # 提交状态：
 # post https://www.1point3acres.com/bbs/plugin.php?id=ahome_dayquestion:pop
 
+solver = None
+
 def get_verify_code(id_hash) -> str:
 	verify_code = ""
 	for i in range(20):
@@ -45,12 +47,11 @@ def get_verify_code(id_hash) -> str:
 	return verify_code
 
 
-def get_g_token(api_key, url) -> str:
+def get_g_token(api_key, url) -> dict:
+	global solver
 	solver = TwoCaptcha(api_key)
 	try:
-		result = solver.solve_captcha(
-			site_key='6LeCeskbAAAAAE-5ns6vBXkLrcly-kgyq6uAriBR',
-			page_url=url)
+		result = solver.recaptcha(sitekey='6LeCeskbAAAAAE-5ns6vBXkLrcly-kgyq6uAriBR', url=url)
 
 	except Exception as e:
 		print(e)
@@ -81,7 +82,9 @@ def daily_checkin(api_key: str) -> bool:
 	code = get_g_token(api_key, get_checkin_url)
 	if code == "":
 		return False
-	return do_daily_checkin_(g_token=code, form_hash=form_hash, sec_hash=sec_hash)
+	result = do_daily_checkin_(g_token=code["code"], form_hash=form_hash, sec_hash=sec_hash)
+	solver.report(code["captchaId"], result)
+	return result
 
 
 def daily_question(api_key: str) -> bool:
@@ -93,7 +96,9 @@ def daily_question(api_key: str) -> bool:
 	code = get_g_token(api_key, get_checkin_url)
 	if code == "":
 		return False
-	return do_daily_question_(answer=answer, g_token=code, form_hash=form_hash, sec_hash=sec_hash)
+	result = do_daily_question_(answer=answer, g_token=code["code"], form_hash=form_hash, sec_hash=sec_hash)
+	solver.report(code["captchaId"], result)
+	return result
 
 
 def do_all(username: str, password: str, api_key: str):
