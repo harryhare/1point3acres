@@ -55,7 +55,7 @@
 
 * 程序会在指定的时间每天运行一次，一次配置，永远执行，设好后就再不用管
 
-* 配置简单，一分钟搞定，~~使用 github action 模式，不依赖 github 以外的东西，只要 fork 本repo后设置 repo secret 即可~~
+* 配置简单，~~使用 github action 模式，不依赖 github 以外的东西，只要 fork 本repo后设置 repo secret 即可~~
 
 * 支持多用户签到，批量用户签到，把用户名密码加到`USERS`数组中即可
 
