@@ -5,11 +5,11 @@
 
 **更新验证模块**
 
-使用 [网站 2captcha.com](https://2captcha.com?from=12332166)提供的api。
+使用 [网站 2captcha.com](https://2captcha.com?from=12332166) 提供的api。
 
-但是该API 收费，一亩三分地的验证码是 reCAPTCHA v2 - hard ，对应的[收费](https://2captcha.com/2captcha-api)是 $2.99/1000次请求
+但是该API 收费，一亩三分地的验证码是 [reCAPTCHA v2 hard](https://2captcha.com/demo) ，对应的[收费](https://2captcha.com/2captcha-api)是 $2.99 / 1000 次请求
 
-如果想使用需要注册账号+充值只少3刀（单个账号可以用500天左右）+ 复制 apikey 替换configure/data.json 文件中的字段
+如果想使用需要注册账号+充值只少3刀（单个账号可以用 500 天左右）+ 复制 apikey 替换 configure/data.json 文件中的字段
 
 2021.08.01
 
