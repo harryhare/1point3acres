@@ -137,3 +137,4 @@ dmypy.json
 *.html
 
 test_2captcha.py
+test.py
