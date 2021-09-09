@@ -119,7 +119,7 @@ def daily_question(api_key: str) -> bool:
 
 def do_all(username: str, password: str, api_key: str):
 	print(f"for user: {username[:3]}...{username[-2:]}")
-	daily_login(api_key, username, password)
+	daily_login_v2(api_key, username, password)
 	daily_checkin(api_key)
 	daily_question(api_key)
 	return
@@ -139,8 +139,8 @@ def main(from_file: bool = False):
 	for user in users:
 		m = hashlib.md5()
 		m.update(user["password"].encode("ascii"))
-		do_all(user["username"], m.hexdigest(), api_key)
-		#do_all(user["username"], user["password"], api_key)
+		#do_all(user["username"], m.hexdigest(), api_key)
+		do_all(user["username"], user["password"], api_key)
 
 
 if __name__ == "__main__":
