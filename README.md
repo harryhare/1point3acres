@@ -11,7 +11,7 @@
 使用cookie.json 后，原先的data.json 就用不到了，所以不再需要配置。
 
 <details>
-<summary> 如何找到cookie </summary>
+<summary> 如何找到cookie， F12 -> network 标签 -> 找到 bbs/ 请求 -> 查看具体的请求头 -> 找到cookie -> 复制 </summary>
 
 ![](screenshots/cookie.png)
 </details>
