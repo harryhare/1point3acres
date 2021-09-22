@@ -6,8 +6,9 @@
 
 这段时间逐渐有账户被要求强制微信扫描登录, 导致程序失效。
 
-增加了直接用通过cookie签到和答题的方式, 并且修改配置文件configure/cookie.json，用从浏览器抓到的cookie 替换相应字段
-使用cookie.json 后，原先的data.json 就用不到了，所以不再需要配置
+增加了直接用通过cookie签到和答题的方式, 需要修改配置文件configure/cookie.json，把浏览器复制的cookie 粘贴到这个文件，api key和以前一样也需要替换。
+
+使用cookie.json 后，原先的data.json 就用不到了，所以不再需要配置。
 
 <details>
 <summary> 如何找到cookie </summary>
