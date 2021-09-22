@@ -61,6 +61,10 @@ def get_g_token(api_key: str, url: str, site_key: str = '6LeCeskbAAAAAE-5ns6vBXk
 		return result
 
 
+def daily_login_cookie(cookie: str):
+	return login_cookie(cookie)
+
+
 def daily_login_v2(api_key: str, username: str, password: str):
 	print("do login...")
 	csrf_token = get_login_info_v2()
@@ -99,7 +103,7 @@ def daily_checkin(api_key: str) -> bool:
 	time.sleep(2)
 	if form_hash == "":
 		return False
-	code = get_g_token(api_key, get_checkin_url,other_site_key)
+	code = get_g_token(api_key, get_checkin_url, other_site_key)
 	if code == "":
 		return False
 	return do_daily_checkin_(g_token=code, form_hash=form_hash, sec_hash=sec_hash)
@@ -117,7 +121,14 @@ def daily_question(api_key: str) -> bool:
 	return do_daily_question_(answer=answer, g_token=code, form_hash=form_hash, sec_hash=sec_hash)
 
 
-def do_all(username: str, password: str, api_key: str):
+def do_all_cookie(api_key: str, cookie: str):
+	daily_login_cookie(cookie)
+	daily_checkin(api_key)
+	daily_question(api_key)
+	return
+
+
+def do_all_password(api_key: str, username: str, password: str):
 	print(f"for user: {username[:3]}...{username[-2:]}")
 	daily_login_v2(api_key, username, password)
 	daily_checkin(api_key)
@@ -125,22 +136,28 @@ def do_all(username: str, password: str, api_key: str):
 	return
 
 
+
 def main(from_file: bool = False):
 	users = []
 	api_key = ""
-	if from_file or len(sys.argv) == 1:
-		fp = open("../configure/data.json")
+	cookie_file = "../configure/cookie.json"
+	password_file = "../configure/data.json"
+	if os.path.exists(cookie_file):
+		fp = open(cookie_file)
 		data = json.load(fp)
 		users = data["users"]
 		api_key = data["api_key"]
-	else:
-		api_key = sys.argv[1]
-		users = json.loads(sys.argv[2].replace("'", '"'))
+		if api_key != "replace_with_your_api_key":
+			for user in users:
+				do_all_cookie(api_key, user["cookie"])
+			return
+
+	fp = open(password_file)
+	data = json.load(fp)
+	users = data["users"]
+	api_key = data["api_key"]
 	for user in users:
-		m = hashlib.md5()
-		m.update(user["password"].encode("ascii"))
-		#do_all(user["username"], m.hexdigest(), api_key)
-		do_all(user["username"], user["password"], api_key)
+		do_all_password(api_key, user["username"], user["password"])
 
 
 if __name__ == "__main__":

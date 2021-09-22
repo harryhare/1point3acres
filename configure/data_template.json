@@ -1,0 +1,9 @@
+{
+  "users": [
+    {
+      "username": "replace_with_your_username",
+      "password": "repalce_with_your_password"
+    }
+  ],
+  "api_key": "replace_with_your_api_key"
+}
