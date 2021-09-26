@@ -142,6 +142,8 @@ def main(from_file: bool = False):
 	api_key = ""
 	cookie_file = "../configure/cookie.json"
 	password_file = "../configure/data.json"
+	if(len(sys.argv)>1):
+		cookie_file=sys.argv[1]
 	if os.path.exists(cookie_file):
 		fp = open(cookie_file)
 		data = json.load(fp)
