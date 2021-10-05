@@ -160,6 +160,7 @@ def main(from_file: bool = False):
 	api_key = data["api_key"]
 	for user in users:
 		do_all_password(api_key, user["username"], user["password"])
+		time.sleep(5)
 
 
 if __name__ == "__main__":
