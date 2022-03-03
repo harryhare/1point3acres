@@ -1,6 +1,6 @@
 requests==2.22.0
 lxml==4.6.3
 cssselect==1.1.0
-TwoCaptcha==0.0.1
+2captcha-python==1.0.3
 
 
