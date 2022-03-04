@@ -192,7 +192,7 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
     header = {
         "User-Agent": user_agent,
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Referer': 'https://www.1point3acres.com',
+        'Referer': 'https://auth.1point3acres.com/login',
         'Origin': 'https://auth.1point3acres.com',
 
     }
@@ -223,6 +223,7 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
     print(response.status_code)
     if response.status_code == 400:
         print("login error")
+        save_error(response, "login_v2 err")
         exit(-1)
     if response.status_code != 302 and response.status_code != 200:
         print("login error")

@@ -125,7 +125,7 @@ def main(from_file: bool = False):
     users = []
     api_key = ""
     cookie_file = "../configure/cookie.json"
-    password_file = "../configure/data_self.json"
+    password_file = "../configure/data.json"
     if (len(sys.argv) > 1):
         cookie_file = sys.argv[1]
     if os.path.exists(cookie_file):
