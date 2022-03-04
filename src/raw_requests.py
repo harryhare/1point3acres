@@ -196,14 +196,6 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
         'Origin': 'https://auth.1point3acres.com',
 
     }
-    # body = {
-    # 	"username": username,
-    # 	"password": password_hashed,
-    # 	"cookietime": "2592000",  # 30 days
-    # 	"quickforward": "yes",
-    # 	"handlekey": "ls",
-    # }
-    # response = scraper.post(login_url, headers=header, cookies=cookie_jar, data=urllib.parse.urlencode(body))
     captcha = solver.recaptcha(
         sitekey=login_site_key_v2,
         url="https://auth.1point3acres.com/",
@@ -216,7 +208,8 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
         "question_id": 0,
         "answer": "",
         "g-recaptcha-response": captcha['code'],
-        "submit": "登录"
+        "submit": "\u767B\u5F55",
+        # "submit": "登录",
         # "submit": "%E7%99%BB%E5%BD%95"
     }
     response = session.post(login_url_v2, headers=header, data=urllib.parse.urlencode(body))
@@ -235,45 +228,6 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
         exit(-1)
     else:
         solver.report(captcha["captchaId"], True)
-    if "登录" not in response.text:
-        print("登录成功")
-    if "用户名或密码错误" in response.text:
-        print("用户名或密码错误")
-        exit(-1)
-    return True
-
-
-def login_v3(
-    username: str, password_hashed: str, csrf_token: str, g_token: str
-) -> bool:
-    logger.info("try login...")
-    header = {
-        "User-Agent": user_agent,
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": "https://auth.1point3acres.com/login",
-        "Origin": "https://auth.1point3acres.com",
-    }
-
-    body = {
-        "redirect_url": "https://www.1point3acres.com/bbs/",
-        "csrf_token": csrf_token,
-        "username": username,
-        "password": password_hashed,
-        "question_id": 0,
-        "answer": "",
-        "g-recaptcha-response": g_token,
-        "submit": "\u767B\u5F55",
-    }
-    response = session.post(
-        login_url_v2, headers=header, data=urllib.parse.urlencode(body)
-    )
-    print(response.status_code)
-    if response.status_code == 400:
-        print(response.status_code)
-        exit(-1)
-    if response.status_code != 302 and response.status_code != 200:
-        print("login error")
-        exit(-1)
     if "登录" not in response.text:
         print("登录成功")
     if "用户名或密码错误" in response.text:
