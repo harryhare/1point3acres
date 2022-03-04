@@ -1,4 +1,40 @@
-![每日签到答题](https://github.com/harryhare/1point3acres/actions/workflows/get_credit_ubuntu_flaresolverr.yml/badge.svg)
+# 1point3acres
+
+[一亩三分地](https://www.1point3acres.com/bbs/) 自动签到、答题
+
+快速设置，无 aws 依赖，验证码自动识别，一次性设置后再无需手动操作
+
+* 程序会自动识别验证码
+
+* 程序会在指定的时间每天运行一次，一次配置，永远执行，设好后就再不用管
+
+* 支持多用户签到，批量用户签到，把用户名密码加到`USERS`数组中即可
+
+## how to use
+
+### crontab 定时运行
+
+* 注册[2captcha.com](https://2captcha.com?from=12332166) 得到 apikey 并充值(可以用支付宝)
+    <details>
+    <summary>具体操作展开查看</summary>
+    
+    ![](screenshots/2captcha.png)
+    </details>
+* 修改 configure/data.json，用你的用户名,密码,apikey替换文件中的相应字段
+
+* 安装依赖
+以 ubuntu 为例，其他系统请用相应的方式安装依赖
+    ```bash
+    sudo /bin/bash prepare.sh
+    ```
+    
+* crontab
+    ```
+    crontab -e
+    ```
+    ```text
+    15 8 * * * cd /replace_with_path_to_repo/src && python3 service.py 2>&1 1>/tmp/1point3acres.log
+    ```
 
 
 ## Notice
@@ -75,44 +111,6 @@
 2021.07.11
 
 ---
-
-# 1point3acres
-
-[一亩三分地](https://www.1point3acres.com/bbs/) 自动签到、答题
-
-快速设置，无 aws 依赖，验证码自动识别，一次性设置后再无需手动操作
-
-* 程序会自动识别验证码
-
-* 程序会在指定的时间每天运行一次，一次配置，永远执行，设好后就再不用管
-
-* 支持多用户签到，批量用户签到，把用户名密码加到`USERS`数组中即可
-
-## how to use
-
-### crontab 定时运行
-
-* 注册[2captcha.com](https://2captcha.com?from=12332166) 得到 apikey 并充值(可以用支付宝)
-    <details>
-    <summary>具体操作展开查看</summary>
-    
-    ![](screenshots/2captcha.png)
-    </details>
-* 修改 configure/data.json，用你的用户名,密码,apikey替换文件中的相应字段
-
-* 安装依赖
-以 ubuntu 为例，其他系统请用相应的方式安装依赖
-    ```bash
-    sudo /bin/bash prepare.sh
-    ```
-    
-* crontab
-    ```
-    crontab -e
-    ```
-    ```text
-    15 8 * * * cd /replace_with_path_to_repo/src && python3 service.py 2>&1 1>/tmp/1point3acres.log
-    ```
 
 
 
