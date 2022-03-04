@@ -184,6 +184,9 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str, 
     if "登录失败" in response.text:
         print("用户名密码错误")
         exit(-1)
+    if "您的账号存在被盗风险" in response.text:
+        print("账号被强制微信登录")
+        exit(-1)
     return True
 
 
@@ -230,6 +233,9 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
         solver.report(captcha["captchaId"], True)
     if "登录" not in response.text:
         print("登录成功")
+    if "您的账号存在被盗风险" in response.text:
+        print("账号被强制微信登录")
+        exit(-1)
     if "用户名或密码错误" in response.text:
         print("用户名或密码错误")
         exit(-1)
