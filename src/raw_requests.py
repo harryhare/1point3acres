@@ -242,6 +242,45 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
     return True
 
 
+def login_v3(
+    username: str, password_hashed: str, csrf_token: str, g_token: str
+) -> bool:
+    logger.info("try login...")
+    header = {
+        "User-Agent": user_agent,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Referer": "https://auth.1point3acres.com/login",
+        "Origin": "https://auth.1point3acres.com",
+    }
+
+    body = {
+        "redirect_url": "https://www.1point3acres.com/bbs/",
+        "csrf_token": csrf_token,
+        "username": username,
+        "password": password_hashed,
+        "question_id": 0,
+        "answer": "",
+        "g-recaptcha-response": g_token,
+        "submit": "\u767B\u5F55",
+    }
+    response = session.post(
+        login_url_v2, headers=header, data=urllib.parse.urlencode(body)
+    )
+    print(response.status_code)
+    if response.status_code == 400:
+        print(response.status_code)
+        exit(-1)
+    if response.status_code != 302 and response.status_code != 200:
+        print("login error")
+        exit(-1)
+    if "登录" not in response.text:
+        print("登录成功")
+    if "用户名或密码错误" in response.text:
+        print("用户名或密码错误")
+        exit(-1)
+    return True
+
+
 def get_checkin_info_() -> (str, str):
     form_hash = ""
     sec_hash = ""
