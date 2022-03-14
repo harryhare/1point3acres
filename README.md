@@ -33,7 +33,7 @@
     crontab -e
     ```
     ```text
-    15 7 * * * cd /replace_with_path_to_repo/src && git pull
+    10 8 * * * cd /replace_with_path_to_repo/src && git pull
     15 8 * * * cd /replace_with_path_to_repo/src && python3 service.py 2>&1 1>/tmp/1point3acres.log
     ```
 
