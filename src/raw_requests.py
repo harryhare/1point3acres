@@ -42,12 +42,12 @@ def save_error(response: requests.Response, error_desc: str = ""):
     tmpfilename = "tmp.html"
     if os.name == "posix":
         tmpfilename = "/tmp/" + tmpfilename
-    # conent 是字节
+    # content 是字节
     # text 是字符串
-    f = open("tmp.html", "w", encoding="utf-8")
-    f.write(response.text)
-    # f = open("tmp.html", "wb", encoding="utf-8")
-    # f.write(response.content)
+    # f = open("tmp.html", "w", encoding="utf-8")
+    # f.write(response.text)
+    f = open("tmp.html", "wb")
+    f.write(response.content)
     f.close()
 
 
