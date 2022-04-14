@@ -23,11 +23,11 @@
 * 修改 configure/data.json，用你的用户名,密码,apikey替换文件中的相应字段
 
 * 安装依赖
-以 ubuntu 为例，其他系统请用相应的方式安装依赖
+  以 ubuntu 为例，其他系统请用相应的方式安装依赖
     ```bash
     sudo /bin/bash prepare.sh
     ```
-    
+  
 * crontab
     ```
     crontab -e
@@ -35,6 +35,31 @@
     ```text
     15 8 * * * cd /replace_with_path_to_repo/src && python3 service.py 2>&1 1>/tmp/1point3acres.log
     ```
+    
+* windows替代crontab方法
+    
+    将"auto_run_windows.bat"中D:"替换为你的盘，"D:\replace_with_path_to_repo"路径替换为你的仓库路径 "。
+    
+    ```bat
+    #auto_run_windows.bat
+    D:
+    cd D:\replace_with_path_to_repo\1point3acres\src
+    python service.py 
+    pause
+    exit
+    ```
+    
+    **创建定时任务**
+    
+    ```text
+    win+R
+    输入 
+    taskschd.msc
+    ```
+    
+    以此点击“创建基本任务"->"名称"一栏输入"1potins"->下一步->勾选"每天"->自己选择启动时间->下一步->操作选择“启动程序”->点击游览找到目录下的“auto_run_windows.bat”->点击下一步->点击完成。
+    
+    ![](screenshots/win_taskschd.png)
 
 
 ## Notice
