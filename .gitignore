@@ -133,7 +133,6 @@ dmypy.json
 
 # output
 *.gif
-*.png
 *.html
 
 test_2captcha.py
