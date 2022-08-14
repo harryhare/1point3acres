@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "user_agent": "replace_with_your_user_agent",
+      "accept": "replace_with_your_accept",
+      "accept_language": "replace_with_your_accept_language",
+      "cookie": "replace_with_your_cookies"
+    }
+  ],
+  "api_key": "replace_with_your_api_key"
+}

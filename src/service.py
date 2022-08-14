@@ -46,8 +46,8 @@ from twocaptcha import TwoCaptcha
 #         return result
 
 
-def daily_login_cookie(cookie: str):
-    return login_cookie(cookie)
+def daily_login_settings(settings: dict):
+    return login_settings(settings)
 
 
 def daily_login_v2(solver, username: str, password: str):
@@ -106,8 +106,8 @@ def daily_question(solver) -> bool:
     return do_daily_question_(answer=answer, solver=solver, form_hash=form_hash, sec_hash=sec_hash)
 
 
-def do_all_cookie(solver, cookie: str):
-    daily_login_cookie(cookie)
+def do_all_settings(solver, settings: dict):
+    daily_login_settings(settings)
     daily_checkin(solver)
     daily_question(solver)
     return
@@ -124,19 +124,19 @@ def do_all_password(solver, username: str, password: str):
 def main(from_file: bool = False):
     users = []
     api_key = ""
-    cookie_file = "../configure/cookie.json"
+    settings_file = "../configure/settings.json"
     password_file = "../configure/data.json"
     if (len(sys.argv) > 1):
-        cookie_file = sys.argv[1]
-    if os.path.exists(cookie_file):
-        fp = open(cookie_file)
+        settings_file = sys.argv[1]
+    if os.path.exists(settings_file):
+        fp = open(settings_file)
         data = json.load(fp)
         users = data["users"]
         api_key = data["api_key"]
         solver = TwoCaptcha(api_key)
         if api_key != "replace_with_your_api_key":
             for user in users:
-                do_all_cookie(solver, user["cookie"])
+                do_all_settings(solver, user)
             return
 
     fp = open(password_file)
