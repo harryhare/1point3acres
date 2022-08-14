@@ -69,12 +69,12 @@ def login_settings(login_settings: str) -> bool:
     return True
 
 
-def get_login_info_() -> (str, str):
+def get_login_info_() -> (str, str, str):
     global session
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Referer": referer,
     }
     session = requests.session()
@@ -121,7 +121,7 @@ def get_login_info_v2() -> str:
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Referer": referer,
     }
     session = requests.session()
@@ -153,7 +153,7 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str, 
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     # body = {
@@ -206,7 +206,7 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Referer': 'https://auth.1point3acres.com/login',
         'Origin': 'https://auth.1point3acres.com',
@@ -261,7 +261,7 @@ def get_checkin_info_() -> (str, str):
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Referer": referer
     }
     response = session.get(get_checkin_url, headers=header)
@@ -293,7 +293,7 @@ def do_daily_checkin_(solver, form_hash: str, sec_hash: str = "S00") -> bool:
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
     }
@@ -347,7 +347,7 @@ def get_daily_task_answer() -> (str, str, str):
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Referer": referer
     }
     response = session.get(get_question_url, headers=header)
@@ -401,7 +401,7 @@ def do_daily_question_(answer: str, solver, form_hash: str, sec_hash: str = "SA0
     header = {
         "User-Agent": user_agent,
         "Accept": accept,
-        "Accept_Language": accept_language,
+        "Accept-Language": accept_language,
         "Referer": referer,
         "Content-Type": "application/x-www-form-urlencoded",
     }
