@@ -11,6 +11,8 @@ import os
 import http.cookies
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
+accept = "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+accept_language = "en-US,en;q=0.5"
 # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 referer = "https://www.1point3acres.com/bbs/"
@@ -57,10 +59,13 @@ def check_status_code(response: requests.Response, error_desc: str = ""):
         exit(-1)
 
 
-def login_cookie(cookie: str) -> bool:
-    global session
+def login_settings(login_settings: str) -> bool:
+    global session, user_agent, accept, accept_language
     session = requests.session()
-    session.cookies.update(http.cookies.SimpleCookie(cookie))
+    session.cookies.update(http.cookies.SimpleCookie(login_settings["cookie"]))
+    for e in ["user_agent", "accept", "accept_language"]:
+        if e in login_settings and login_settings[e] != f"replace_with_your_{e}":
+            globals()[e] = login_settings[e]
     return True
 
 
@@ -68,6 +73,8 @@ def get_login_info_() -> (str, str):
     global session
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Referer": referer,
     }
     session = requests.session()
@@ -113,6 +120,8 @@ def get_login_info_v2() -> str:
     # global proxy
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Referer": referer,
     }
     session = requests.session()
@@ -143,6 +152,8 @@ def login(username: str, password_hashed: str, form_hash: str, login_hash: str, 
     print("try login...")
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     # body = {
@@ -194,6 +205,8 @@ def login_v2(username: str, password_hashed: str, csrf_token: str, solver) -> bo
     print("try login...")
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Referer': 'https://auth.1point3acres.com/login',
         'Origin': 'https://auth.1point3acres.com',
@@ -247,6 +260,8 @@ def get_checkin_info_() -> (str, str):
     sec_hash = ""
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Referer": referer
     }
     response = session.get(get_checkin_url, headers=header)
@@ -277,6 +292,8 @@ def get_checkin_info_() -> (str, str):
 def do_daily_checkin_(solver, form_hash: str, sec_hash: str = "S00") -> bool:
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Content-Type": "application/x-www-form-urlencoded",
         "Referer": "https://www.1point3acres.com/bbs/dsu_paulsign-sign.html"
     }
@@ -329,6 +346,8 @@ def get_daily_task_answer() -> (str, str, str):
     print("get question...")
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Referer": referer
     }
     response = session.get(get_question_url, headers=header)
@@ -381,6 +400,8 @@ def get_daily_task_answer() -> (str, str, str):
 def do_daily_question_(answer: str, solver, form_hash: str, sec_hash: str = "SA00") -> bool:
     header = {
         "User-Agent": user_agent,
+        "Accept": accept,
+        "Accept_Language": accept_language,
         "Referer": referer,
         "Content-Type": "application/x-www-form-urlencoded",
     }
