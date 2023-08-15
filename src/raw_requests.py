@@ -293,7 +293,8 @@ def do_daily_checkin2_(solver) -> bool:
 	}
 
 	response = session.post(post_checkin_url, headers=header, data=json.dumps(body))
-	print(response.text)
+	#print(response.status_code)
+	#print(response.text)
 	check_status_code(response, "daily checkin")
 	if "人机验证出错，请重试" in response.text:
 		print("验证码错误")
@@ -403,8 +404,8 @@ def do_daily_question_(question: int, answer: int, solver) -> bool:
 	}
 
 	response = session.post(post_answer_url, headers=header, data=json.dumps(body))
-	print(response.status_code)
-	print(response.text)
+	#print(response.status_code)
+	#print(response.text)
 
 	check_status_code(response, "post answer")
 	if "人机验证出错，请重试" in response.text:
@@ -421,5 +422,5 @@ def do_daily_question_(question: int, answer: int, solver) -> bool:
 	elif (result["msg"] == "您今天已经答过题了"):
 		return True
 	else:
-		print(result)
+		print(response.text)
 		return False
