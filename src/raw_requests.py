@@ -279,7 +279,7 @@ def do_daily_checkin2_(solver) -> bool:
 		"Referer": referer
 	}
 	result = solver.turnstile(sitekey=cf_capcha_site_key, url=checkin_page, useragent=user_agent)
-	print(result)
+	#print(result)
 	code = result["code"]
 	id = result["captchaId"]
 
@@ -390,7 +390,7 @@ def do_daily_question_(question: int, answer: int, solver) -> bool:
 	}
 
 	result = solver.turnstile(sitekey=cf_capcha_site_key, url=question_page, useragent=user_agent)
-	print(result)
+	#print(result)
 	code = result["code"]
 	captcha_id = result["captchaId"]
 
