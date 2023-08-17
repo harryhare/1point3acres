@@ -270,6 +270,7 @@ def get_checkin_info_() -> (bool):
 		print("cookie无效 或者用户名密码错误")
 		exit(-1)
 		return True
+	return True
 
 
 def do_daily_checkin2_(solver) -> bool:
