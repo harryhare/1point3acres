@@ -304,7 +304,7 @@ def do_daily_checkin2_(solver) -> bool:
 	else:
 		solver.report(id, True)
 
-	result = json.load(response.text)
+	result = json.loads(response.text)
 	print(result["msg"])
 	if (result["errno"] == 0):  # 成功
 		return True
